@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonne Année 2024</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .year {
+            font-size: 100px;
+            font-weight: bold;
+            position: relative;
+            margin: 50px 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .countdown {
+            font-size: 30px;
+            margin: 20px 0;
+            animation: pulse 1s infinite;
+        }
+
+        .message {
+            font-size: 20px;
+            margin-top: 30px;
+            opacity: 0;
+            transition: opacity 2s;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="year" id="year">202<span id="digit">3</span></div>
+    <div class="countdown" id="countdown">00:00:00</div>
+    <div class="message" id="message">
+        <p>Asielle Wassa vous souhaite bonne et heureuse année 2024 !</p>
+        <p>Que cette nouvelle année soit remplie de joie, de santé et de réussite.</p>
+        <p>Puissent tous vos rêves se réaliser et chaque jour vous apporter un peu plus de bonheur.</p>
+        <p>Que Dieu bénisse le Mali.</p>
+    </div>
+
+    <script>
+        // Compte à rebours jusqu'à minuit
+        const countdownElement = document.getElementById("countdown");
+        const digitElement = document.getElementById("digit");
+        const messageElement = document.getElementById("message");
+
+        function updateCountdown() {
+            const now = new Date();
+            const nextYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
+            const diff = nextYear - now;
+
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            countdownElement.textContent = 
+                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+            if (diff <= 0) {
+                clearInterval(timer);
+                digitElement.textContent = "4"; // Remplace 3 par 4
+                messageElement.style.opacity = 1; // Affiche le message
+                countdownElement.classList.add("hidden"); // Cache le compte à rebours
+            }
+        }
+
+        // Mettre à jour le compte à rebours chaque seconde
+        const timer = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Met à jour immédiatement au chargement
+    </script>
+</body>
+</html>
